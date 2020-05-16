@@ -7,5 +7,5 @@ test:
 	go test -cover ./...
 
 build:
-	GOOS=linux GOARCH=amd64 go build cmd/hapoon/main.go -o build/hapoon-api
+	GOOS=linux GOARCH=amd64 go build -o build/hapoon-api cmd/hapoon/main.go
 	
