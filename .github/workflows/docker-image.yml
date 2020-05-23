@@ -14,4 +14,6 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file build/package/Dockerfile --tag hapoon/api:$GITHUB_REF
     - name: Push the Docker image
-      run: docker push hapoon/api:`sed -e "s/refs\/heads\///g" $GITHUB_REF`
+      run: docker push hapoon/api:$BRANCH
+      env:
+        BRANCH: echo $GITHUB_REF | sed -e "s/refs\/heads\///g"
