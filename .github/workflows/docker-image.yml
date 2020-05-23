@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on:
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file build/package/Dockerfile --tag hapoon/api:$GITHUB_REF
+    - name: Push the Docker image
+      run: docker push hapoon/api:$GITHUB_REF
