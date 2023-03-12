@@ -1,20 +1,14 @@
 name: Docker Image CI
-
 on:
   push:
-
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
-    env:
-      BRANCH: ${{ echo $GITHUB_REF | sed -e "s/refs\/heads\///g" }}
-
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file build/package/Dockerfile --tag hapoon/api:$BRANCH
-    - name: Push the Docker image
-      run: docker push hapoon/api:$BRANCH
+      run: docker build . --file Dockerfile --tag hapoon/api:$(date +%s)
+
