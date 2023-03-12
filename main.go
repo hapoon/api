@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"hapoon/api/handler"
+	"log"
+	"net/http"
+)
+
+const (
+	name    = "hapoon-api"
+	version = "0.1.0"
+)
 
 func main() {
-	fmt.Println("api start")
+	mux := http.NewServeMux()
+	mux.HandleFunc("/status", handler.Status)
+
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
