@@ -36,3 +36,28 @@ run-image:
 clean:
 	rm -rf $(BIN)
 	go clean
+
+.PHONY: gen
+gen: oapi-validate
+	docker run --rm -v "${PWD}:/local" \
+		openapitools/openapi-generator-cli generate \
+		-i /local/oas/status.yaml -g go-server \
+		-o /local --additional-properties=outputAsLibrary=true,sourceFolder=gen,packageName=api \
+
+.PHONY: oapi-validate
+oapi-validate:
+	docker run --rm -v "${PWD}:/local" \
+		openapitools/openapi-generator-cli validate \
+		-i /local/oas/status.yaml
+
+.PHONY: author
+author:
+	docker run --rm -v "${PWD}:/local" \
+		openapitools/openapi-generator-cli author template \
+		-g go -o /local/tmp
+
+.PHONY: config-help
+config-help:
+	docker run --rm -v "${PWD}:/local" \
+		openapitools/openapi-generator-cli config-help \
+		-g go-server

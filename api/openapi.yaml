@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  description: ステータスを管理するAPI定義です。
+  title: Status
+  version: 0.1.0
+servers:
+- url: http://localhost:8080
+tags:
+- description: ステータス
+  name: status
+paths:
+  /status:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_status_get_200_response'
+          description: 正常にステータスを取得できている
+        "404":
+          description: ステータスが存在していない
+      summary: ステータスを取得します
+      tags:
+      - status
+components:
+  schemas:
+    _status_get_200_response:
+      example:
+        status: 休憩中
+      properties:
+        status:
+          enum:
+          - 休憩中
+          - 仕事中
+          - 私用
+          - 移動中
+          example: 休憩中
+          type: string
+      type: object
