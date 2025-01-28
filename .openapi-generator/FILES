@@ -1,0 +1,9 @@
+api/openapi.yaml
+gen/api.go
+gen/api_status.go
+gen/error.go
+gen/helpers.go
+gen/impl.go
+gen/logger.go
+gen/model__status_get_200_response.go
+gen/routers.go

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"hapoon/api/handler"
 	"log"
 	"net/http"
+
+	api "github.com/hapoon/api/gen"
 )
 
 const (
@@ -12,8 +13,11 @@ const (
 )
 
 func main() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/status", handler.Status)
+	log.Println("Server started")
+	StatusAPIService := api.NewStatusAPIService()
+	StatusAPIController := api.NewStatusAPIController(StatusAPIService)
 
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	router := api.NewRouter(StatusAPIController)
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
